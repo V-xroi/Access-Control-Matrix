@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="../styles.css"> -->
+    <style>
+        .bg-dark .form-control::placeholder {
+            color: rgb(223, 210, 31);
+        }
+    </style>
+
+    <title>Access Control Manager</title>
+</head>
+
+<body class="bg-dark text-light">
+    <div class="container my-5">
+        <h1 class="display-4">Access Control Matrix</h1>
+        <div class="my-4">
+            <h2>Grant Permission:</h2>
+            <form action="/grant" method="post">
+                <div class="mb-3">
+                    <input type="text" class="form-control bg-dark text-light" name="user" required placeholder="User">
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control bg-dark text-light" name="resource" required placeholder="Resource">
+                </div>
+                <div class="mb-3">
+                    <select class="form-control bg-dark text-light" name="action" required>
+                        <option value="read">Read</option>
+                        <option value="write">Write</option>
+                        <option value="read and write">Read And Write</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Grant Permission</button>
+            </form>
+        </div>
+
+        <div class="my-4">
+            <h2>Revoke Permission:</h2>
+            <form action="/revoke" method="post">
+                <div class="mb-3">
+                    <input type="text" class="form-control bg-dark text-light" name="user" required placeholder="User">
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control bg-dark text-light" name="resource" required placeholder="Resource">
+                </div>
+                <div class="mb-3">
+                    <select class="form-control bg-dark text-light" name="action" required>
+                        <option value="read">Read</option>
+                        <option value="write">Write</option>
+                        <option value="read and write">Read And Write</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-danger">Revoke Permission</button>
+            </form>
+        </div>
+        <div class="my-4">
+            <h2>Access Control Log :</h2>
+            <ul class="list-group">
+                {% for rule in rules %}
+                <li class="list-group-item bg-dark border-light text-light">{{ rule.user }} can {{ rule.action }} {{ rule.resource }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JavaScript and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
